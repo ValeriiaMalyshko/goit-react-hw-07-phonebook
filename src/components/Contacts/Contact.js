@@ -1,14 +1,21 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import s from './Contact.module.css';
+import { useDeleteContactMutation } from 'redux/contactsSlice';
 
-export default function Contact({ id, name, number, onDelete }) {
+export default function Contact({ id, name, phone }) {
+  const [deleteContact, { isLoading: isDeleting }] = useDeleteContactMutation();
   return (
     <li className={s.li}>
       <span>
-        {name} : {number}
+        {name} : {phone}
       </span>
-      <button className={s.btn} type="button" onClick={() => onDelete(id)}>
+      <button
+        className={s.btn}
+        type="button"
+        onClick={() => deleteContact(id)}
+        disabled={isDeleting}
+      >
         Delete
       </button>
     </li>
@@ -18,6 +25,5 @@ export default function Contact({ id, name, number, onDelete }) {
 Contact.propTypes = {
   id: PropTypes.string.isRequired,
   name: PropTypes.string.isRequired,
-  number: PropTypes.string.isRequired,
-  onDelete: PropTypes.func.isRequired,
+  phone: PropTypes.string.isRequired,
 };

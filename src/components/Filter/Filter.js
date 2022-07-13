@@ -2,7 +2,7 @@ import React from 'react';
 // import PropTypes from 'prop-types';
 import s from './Filter.module.css';
 // import { connect } from 'react-redux';
-import { changeFilter } from '../../redux/contacts-actions';
+import { changeFilter } from '../../redux/store';
 import { useSelector, useDispatch } from 'react-redux';
 
 const Filter = () => {
@@ -25,17 +25,4 @@ const Filter = () => {
   );
 };
 
-// const mapStateToProps = state => ({
-//   value: state.contacts.filter,
-// });
-
-// const mapDispatchToProps = dispatch => ({
-//   onChange: e => dispatch(changeFilter(e.target.value)),
-// });
-
-// Filter.propTypes = {
-//   onChange: PropTypes.func.isRequired,
-//   value: PropTypes.string.isRequired,
-// };
-// export default connect(mapStateToProps, mapDispatchToProps)(Filter);
 export default Filter;
