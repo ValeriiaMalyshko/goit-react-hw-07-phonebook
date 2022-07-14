@@ -6,8 +6,7 @@ import { changeFilter } from '../../redux/store';
 import { useSelector, useDispatch } from 'react-redux';
 
 const Filter = () => {
-  const getFilter = state => state.contacts.filter;
-  const filter = useSelector(getFilter);
+  const filter = useSelector(state => state.filter);
   const dispatch = useDispatch();
   const onChange = e => dispatch(changeFilter(e.target.value));
 

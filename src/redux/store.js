@@ -4,7 +4,7 @@ import { contactApi } from './contactsSlice';
 import { createAction } from '@reduxjs/toolkit';
 import { createReducer } from '@reduxjs/toolkit';
 
-const changeFilter = createAction('contacts/filter');
+export const changeFilter = createAction('contacts/filter');
 
 const filter = createReducer('', {
   [changeFilter]: (_, { payload }) => payload,

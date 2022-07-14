@@ -3,16 +3,25 @@ import React from 'react';
 import Contact from './Contact';
 import s from './Contact.module.css';
 import { useFetchContactsQuery } from 'redux/contactsSlice';
+import { useSelector } from 'react-redux';
 
 const ContactList = () => {
-  const { data: contacts, isFetching } = useFetchContactsQuery;
-  return (
-    <ul className={s.ul}>
-      {contacts.map(contact => (
-        <Contact key={contact.id} {...contact} />
-      ))}
-    </ul>
-  );
+  const { data } = useFetchContactsQuery();
+  const filter = useSelector(state => state.filter);
+
+  if (data) {
+    const visibleContacts = data.filter(({ name }) =>
+      name.toLowerCase().includes(filter.toLowerCase())
+    );
+
+    return (
+      <ul className={s.ul}>
+        {visibleContacts.map(({ id, name, phone }) => {
+          return <Contact key={id} id={id} name={name} phone={phone} />;
+        })}
+      </ul>
+    );
+  }
 };
 
 export default ContactList;

@@ -1,12 +1,23 @@
 import React, { useState } from 'react';
+import { nanoid } from 'nanoid';
 // import React, { Component } from 'react';
 // import PropTypes from 'prop-types';
 import s from './Form.module.css';
 // import { connect } from 'react-redux';
-import { useCreateContactMutation } from 'redux/contactsSlice';
+import {
+  useCreateContactMutation,
+  useFetchContactsQuery,
+} from 'redux/contactsSlice';
 
 const Form = () => {
-  const [createContact, { isLoading, isSuccess }] = useCreateContactMutation;
+  const [name, setName] = useState('');
+  const [number, setNumber] = useState('');
+  const nameInputId = nanoid();
+  const numberInputId = nanoid();
+
+  const [createContact] = useCreateContactMutation();
+  const { data } = useFetchContactsQuery();
+  const contacts = data;
 
   const handleChange = e => {
     const { name, value } = e.currentTarget;
@@ -35,8 +46,7 @@ const Form = () => {
       alert(`${name} is already in contacts`);
       return;
     }
-    dispatch(addContact({ name, number }));
-
+    createContact({ name, number });
     setName('');
     setNumber('');
   };
@@ -72,7 +82,7 @@ const Form = () => {
           id={numberInputId}
         />
       </label>
-      <button className={s.btn} type="submit" disabled={isLoading}>
+      <button className={s.btn} type="submit">
         Add contact
       </button>
     </form>
